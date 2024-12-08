@@ -4,9 +4,7 @@
   <title>Музыка мира</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= stylesheet_link_tag params[:controller], media: 'all' if Rails.application.assets.find_asset("#{params[:controller]}.css") %>
-  <%= stylesheet_link_tag "#{params[:controller]}_#{params[:action]}", media: 'all' if Rails.application.assets.find_asset("#{params[:controller]}_#{params[:action]}.css") %>
+  <%= stylesheet_link_tag "#{params[:controller]}", media: 'all' if File.exist?(Rails.root.join("app/assets/stylesheets/#{params[:controller]}.css")) %>
 
   <%= javascript_include_tag 'application' %>
 </head>

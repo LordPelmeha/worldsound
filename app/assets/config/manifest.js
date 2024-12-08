@@ -4,3 +4,4 @@
 //= link home.css
 //= link genres.css
 //= link legends.css
+//= link contact.css

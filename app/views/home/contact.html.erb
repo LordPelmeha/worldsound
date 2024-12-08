@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <title>Контактная форма</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'contact', media: 'all' %>
+
 </head>
 <body>
-
+<div class="form-container">
+  <% if flash[:notice] %>
+    <div class="flash notice"><%= flash[:notice] %></div>
+  <% elsif flash[:alert] %>
+    <div class="flash alert"><%= flash[:alert] %></div>
+  <% end %>
+  <h2>Свяжитесь с нами</h2>
+  <%= form_with url: "/submit_contact_form", method: "post", local: true do |f| %>
+    <div class="input-group">
+      <%= f.label :name, "Имя:" %>
+      <%= f.text_field :name, required: true %>
+    </div>
+    <div class="input-group">
+      <%= f.label :email, "Почта:" %>
+      <%= f.email_field :email, required: true %>
+    </div>
+    <div class="input-group">
+      <%= f.label :subject, "Тема:" %>
+      <%= f.text_field :subject %>
+    </div>
+    <div class="input-group">
+      <%= f.label :message, "Сообщение:" %>
+      <%= f.text_area :message, required: true %>
+    </div>
+    <%= f.submit "Отправить", class: "submit-btn" %>
+  <% end %>
+</div>
 </body>
 </html>
