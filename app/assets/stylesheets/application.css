@@ -68,3 +68,16 @@ html, body {
     text-decoration: underline;
     color: #FFD700;
 }
+
+.footer {
+    background-color: #9370DB;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    position: fixed;
+    bottom: 0;
+    width: 100%; 
+}
+
