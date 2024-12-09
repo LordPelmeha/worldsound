@@ -4,12 +4,18 @@
   <title>Музыка мира</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_link_tag "#{params[:controller]}", media: 'all' if File.exist?(Rails.root.join("app/assets/stylesheets/#{params[:controller]}.css")) %>
-
-  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
 <body>
 <header class="headercontainer">
+  <div class="header-logo">
+
+    <div class="header-logo-text">
+      <span>Логотип</span>
+      <span>Music</span>
+      <span>Around The World</span>
+    </div>
+  </div>
   <div class="header-title">
     <h1>Музыка мира</h1>
   </div>
@@ -22,6 +28,7 @@
     </ul>
   </nav>
 </header>
+
 <%= yield %>
 <footer>...</footer>
 </body>
