@@ -12,4 +12,8 @@ class HomeController < ApplicationController
 
   def contact
   end
+
+  def regist
+  end
+
 end
