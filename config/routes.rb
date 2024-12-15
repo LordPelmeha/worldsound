@@ -10,5 +10,9 @@ Rails.application.routes.draw do
   # Маршруты для HomeController
   get 'genres', to: 'home#genres'
   get 'legends', to: 'home#legends'
-  get 'contact', to: 'home#contact'
+
+  # Контактная форма
+  get 'contact', to: 'contacts#contact', as: 'contact'
+  post 'submit_message', to: 'contacts#create', as: 'submit_message'
+
 end
