@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get 'genres', to: 'home#genres'
   get 'legends', to: 'home#legends'
 
+  # Маршрут для регистрации
+  get 'signup', to: 'users#new', as: :signup
+  post 'signup', to: 'users#create'
+
   # Контактная форма
   get 'contact', to: 'contacts#contact', as: 'contact'
   post 'submit_message', to: 'contacts#create', as: 'submit_message'
