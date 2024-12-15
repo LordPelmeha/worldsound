@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   end
 
   def legends
+    @legends = Legend.all
   end
 
   def contact

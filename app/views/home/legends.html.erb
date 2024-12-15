@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<h1>Музыка мира</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Имя</th>
+    <th>Жанр</th>
+    <th>Эра</th>
+    <th>Страна</th>
+    <th>Описание</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @legends.each do |legend| %>
+    <tr>
+      <td><a href="<%= legend.link %>" target="_blank"><%= legend.name %></a></td>
+      <td><%= legend.genre%></td>
+      <td><%= legend.era%></td>
+      <td><%= legend.country %></td>
+      <td><%= legend.description %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
