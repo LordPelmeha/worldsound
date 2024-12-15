@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   end
 
   def genres
+    @genres = Genre.all
   end
 
   def legends

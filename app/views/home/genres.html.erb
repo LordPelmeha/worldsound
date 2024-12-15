@@ -1,0 +1,19 @@
+<h1>Музыка мира</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Жанр</th>
+      <th>Страна</th>
+      <th>Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @genres.each do |genre| %>
+      <tr>
+        <td><a href="<%= genre.link %>" target="_blank"><%= genre.name %></a></td>
+        <td><%= genre.country %></td>
+        <td><%= genre.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
