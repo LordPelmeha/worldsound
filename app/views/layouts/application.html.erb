@@ -4,12 +4,14 @@
   <title>Музыка мира</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'snow', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
 </head>
 <body>
 <header class="headercontainer">
   <div class="header-logo">
-
     <div class="header-logo-text">
       <span>Логотип</span>
       <span>Music</span>
@@ -29,10 +31,13 @@
   </nav>
 </header>
 
+<!-- Контейнер для снега -->
+<div class="snow-container"></div>
+
 <%= yield %>
+
 <footer class="footer">
   <p>&copy; 2024 Музыка со всего мира | Все права защищены</p>
 </footer>
 </body>
 </html>
-

@@ -1,3 +1,4 @@
+//= link application.js
 //= link_tree ../images
 //= link_tree ../builds
 //= link application.css
@@ -5,3 +6,4 @@
 //= link genres.css
 //= link legends.css
 //= link contact.css
+//= link snow.css
