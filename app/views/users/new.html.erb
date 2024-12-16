@@ -1,22 +1,20 @@
-<h1>Регистрация</h1>
+<h2>Login</h2>
 
-<%= form_with(model: @user, url: signup_path, local: true) do |f| %>
+<%= form_with url: signup_path, local:true, method: :post do %>
   <div>
-    <%= f.label :email, 'Email:' %><br>
-    <%= f.email_field :email, required: true %>
+    <%= label_tag "email" %>
+    <%= email_field_tag "email", nil %>
+
+    <%= label_tag "password" %>
+    <%= password_field_tag "password", nil %>
+
+    <%= submit_tag "Login" %>
   </div>
 
-  <div>
-    <%= f.label :password, 'Пароль:' %><br>
-    <%= f.password_field :password, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation, 'Подтвердите пароль:' %><br>
-    <%= f.password_field :password_confirmation, required: true %>
-  </div>
-
-  <div>
-    <%= f.submit 'Зарегистрироваться' %>
-  </div>
 <% end %>
+
+<br/>
+<br/>
+<br/>
+
+<%= link_to 'Register', signup_url %>

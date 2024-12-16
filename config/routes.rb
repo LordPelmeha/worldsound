@@ -12,8 +12,14 @@ Rails.application.routes.draw do
   get 'legends', to: 'home#legends'
 
   # Маршрут для регистрации
-  get 'signup', to: 'users#new', as: :signup
-  post 'signup', to: 'users#create'
+  # get 'signup', to: 'users#new', as: :signup
+  # post 'signup', to: 'users#create'
+  get "/", to: "home#index"
+
+  get "/signup", to: "users#signup", as: :signup
+  post "/login", to: 'users#login'
+  post '/signup', to: 'users#signup'
+  post 'logout', to: 'users#logout'
 
   # Контактная форма
   get 'contact', to: 'contacts#contact', as: 'contact'

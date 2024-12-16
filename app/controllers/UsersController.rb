@@ -1,20 +1,66 @@
-class UsersController < ApplicationController
-  def new
-    @user = User.new
-  end
+require 'net/http'
+require 'uri'
+require 'json'
 
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to root_path, notice: 'Регистрация успешна!'
-    else
-      render :new
+class UsersController < ApplicationController
+  def index
+    if session[:user_id]
+      redirect_to action: '/'
     end
   end
 
-  private
+  # For handling signup request
+  def signup
+    email = params[:email]
+    password = params[:password]
 
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    # Полный URL для Firebase Authentication API
+    uri = URI('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBM0BOsztVlJy_hE1MjMzhJwV0yJonPchk')
+
+    # Параметры для запроса
+    body = {
+      email: email,
+      password: password,
+      returnSecureToken: true
+    }
+
+    # Отправка POST-запроса
+    res = Net::HTTP.post(
+      uri,
+      body.to_json,
+      "Content-Type" => "application/json"
+    )
+
+    data = JSON.parse(res.body)
+
+    if res.is_a?(Net::HTTPSuccess)
+      redirect_to action: '/'
+    else
+      flash[:error] = data['error']['message']
+      render :signup
+    end
+  end
+
+
+  def login
+    email = params[:email]
+    password = params[:password]
+
+    uri = URI('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTjel7X8dsnvOts0_QCq_CIteaWswF9P8')
+
+    res = Net::HTTP.post_form(uri, 'email' => email, 'password' => password)
+
+    data = JSON.parse(res.body)
+
+    if res.is_a?(Net::HTTPSuccess)
+      session[:user_id] = data['localId']
+
+      redirect_to action: '/'
+    end
+  end
+
+  def logout
+    session.clear
+    redirect_to action: '/'
   end
 end
