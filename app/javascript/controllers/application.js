@@ -1,4 +1,6 @@
 import { Application } from "@hotwired/stimulus"
+import './logo_click';
+
 
 const application = Application.start()
 
