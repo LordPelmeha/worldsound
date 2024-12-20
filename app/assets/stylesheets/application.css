@@ -117,5 +117,22 @@ html, body {
     filter: brightness(1.5);
 }
 
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.alert-notice {
+    background-color: #4CAF50; /* Зеленый фон для успешных сообщений */
+    color: white;
+}
+
+.alert-error {
+    background-color: #f44336; /* Красный фон для ошибок */
+    color: white;
+}
+
 
 
