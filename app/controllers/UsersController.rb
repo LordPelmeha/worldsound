@@ -5,7 +5,7 @@ require 'json'
 class UsersController < ApplicationController
   def index
     if session[:user_id]
-      redirect_to action: '/'
+      redirect_to root_path
     end
   end
 
@@ -63,8 +63,15 @@ class UsersController < ApplicationController
     end
   end
 
-def logout
-  session.clear
-  redirect_to root_path
-end
+  def dashboard
+    if session[:user_id].nil?
+      redirect_to login_path, alert: "Пожалуйста, войдите в систему."
+    end
+    # Здесь можно отобразить данные пользователя
+  end
+
+  def logout
+    session.clear
+    redirect_to root_path
+  end
 end

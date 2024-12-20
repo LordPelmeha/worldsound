@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
   get "/signup", to: "users#signup"
   get "/login", to: "users#login"
-
+  get "/dashboard", to: "users#dashboard"
+  get "/logout", to: "users#logout"
+  
   post '/signup', to: 'users#signup'
   post "/login", to: 'users#login'
   post 'logout', to: 'users#logout'
