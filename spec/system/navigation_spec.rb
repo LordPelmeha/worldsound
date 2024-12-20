@@ -12,5 +12,28 @@ RSpec.describe "Navigation", type: :system do
     expect(current_path).to eq(root_path) # Ожидаемый редирект на главную страницу
     expect(page).to have_content('Регистрация успешна!') # Ожидаемое сообщение
   end
+
+  it "navigates to the home page" do
+    visit root_path
+    expect(page).to have_content('Музыка мира')
+  end
+
+  it "navigates to the genres page" do
+    visit root_path
+    click_link 'Жанры'
+    expect(current_path).to eq(genres_path)
+  end
+
+  it "navigates to the legends page" do
+    visit root_path
+    click_link 'Легенды'
+    expect(current_path).to eq(legends_path)
+  end
+
+  it "navigates to the contact page" do
+    visit root_path
+    click_link 'Контакты'
+    expect(current_path).to eq(contact_path)
+  end
 end
 
