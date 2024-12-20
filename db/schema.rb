@@ -50,4 +50,3 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_15_195233) do
     t.datetime "updated_at", null: false
   end
 end
-

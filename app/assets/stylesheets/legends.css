@@ -1,0 +1,54 @@
+main{
+    padding-bottom: 100px;
+}
+
+.music-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+    text-align: left;
+}
+
+.music-table thead tr {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.music-table th, .music-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+.music-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.music-table a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.music-table a:hover {
+    text-decoration: underline;
+}
+
+h2.aligncenter {
+    text-align: center;
+    padding-top: 10px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 20px;
+    color: #3620c2;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+}
+th {
+    background-color: #00008B;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

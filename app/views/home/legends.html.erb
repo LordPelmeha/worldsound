@@ -1,23 +1,29 @@
-<h1>Музыка мира</h1>
-<table>
-  <thead>
-  <tr>
-    <th>Имя</th>
-    <th>Жанр</th>
-    <th>Эра</th>
-    <th>Страна</th>
-    <th>Описание</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @legends.each do |legend| %>
+<head>
+  <%= stylesheet_link_tag 'legends.css', media: 'all' %>
+</head>
+
+<main>
+  <h2 class="aligncenter">Легенды мировой музыки</h2>
+  <table class="music-table">
+    <thead>
     <tr>
-      <td><a href="<%= legend.link %>" target="_blank"><%= legend.name %></a></td>
-      <td><%= legend.genre%></td>
-      <td><%= legend.era%></td>
-      <td><%= legend.country %></td>
-      <td><%= legend.description %></td>
+      <th>Имя</th>
+      <th>Жанр</th>
+      <th>Эра</th>
+      <th>Страна</th>
+      <th>Описание</th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% @legends.each do |legend| %>
+      <tr>
+        <td><a href="<%= legend.link %>" target="_blank"><%= legend.name %></a></td>
+        <td><%= legend.genre %></td>
+        <td><%= legend.era %></td>
+        <td><%= legend.country %></td>
+        <td><%= legend.description %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</main>
