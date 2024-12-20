@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     password = params[:password]
 
     # Полный URL для Firebase Authentication API
-    uri = URI('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBM0BOsztVlJy_hE1MjMzhJwV0yJonPchk')
+    uri = URI(ENV['FIREBASE_SIGNUP'])
 
     # Параметры для запроса
     body = {
@@ -34,9 +34,9 @@ class UsersController < ApplicationController
     data = JSON.parse(res.body)
 
     if res.is_a?(Net::HTTPSuccess)
-      redirect_to action: '/'
+      
     else
-      flash[:error] = data['error']['message']
+      flash[:error] = data["error"]["message"]
       render :signup
     end
   end
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     email = params[:email]
     password = params[:password]
 
-    uri = URI('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTjel7X8dsnvOts0_QCq_CIteaWswF9P8')
+    uri = URI(ENV['FIREBASE_LOGIN'])
 
     res = Net::HTTP.post_form(uri, 'email' => email, 'password' => password)
 
@@ -54,13 +54,17 @@ class UsersController < ApplicationController
 
     if res.is_a?(Net::HTTPSuccess)
       session[:user_id] = data['localId']
-
-      redirect_to action: '/'
+      redirect_to root_path
+      
+    
+    else
+      flash[:error] = data['error']['message']
+      render :login
     end
   end
 
-  def logout
-    session.clear
-    redirect_to action: '/'
-  end
+def logout
+  session.clear
+  redirect_to root_path
+end
 end

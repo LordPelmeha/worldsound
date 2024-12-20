@@ -16,9 +16,11 @@ Rails.application.routes.draw do
   # post 'signup', to: 'users#create'
   get "/", to: "home#index"
 
-  get "/signup", to: "users#signup", as: :signup
-  post "/login", to: 'users#login'
+  get "/signup", to: "users#signup"
+  get "/login", to: "users#login"
+
   post '/signup', to: 'users#signup'
+  post "/login", to: 'users#login'
   post 'logout', to: 'users#logout'
 
   # Контактная форма
