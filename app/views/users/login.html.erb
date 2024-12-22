@@ -1,20 +1,24 @@
-<h2>Login</h2>
+<link rel="stylesheet" href="worldmusic.css">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<%= stylesheet_link_tag 'login', media: 'all' %>
+<div class="form-wrapper">
+  <div class="form-container">
+    <h2>Вход</h2>
 
-<%= form_with url: login_path, local:true, method: :post do %>
-  <div>
-    <%= label_tag "email" %>
-    <%= email_field_tag "email", nil %>
+    <%= form_with url: login_path, local: true, method: :post do %>
+      <div class="input-group">
+        <%= label_tag "email", "Почта" %>
+        <%= email_field_tag "email", nil, class: "form-input" %>
+      </div>
 
-    <%= label_tag "password" %>
-    <%= password_field_tag "password", nil %>
+      <div class="input-group">
+        <%= label_tag "password", "Пароль" %>
+        <%= password_field_tag "password", nil, class: "form-input" %>
+      </div>
 
-    <%= submit_tag "Login" %>
+      <%= submit_tag "Войти", class: "submit-btn" %>
+    <% end %>
+
+    <%= link_to 'Зарегистрироваться', signup_url, class: 'register-link' %>
   </div>
-
-<% end %>
-
-<br/>
-<br/>
-<br/>
-
-<%= link_to 'Register', signup_url %>
+</div>

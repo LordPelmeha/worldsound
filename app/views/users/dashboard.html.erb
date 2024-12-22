@@ -1,1 +1,49 @@
-<h2>Личный кабинет</h2>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="worldmusic.css">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  <%= stylesheet_link_tag 'dashboard', media: 'all' %>
+  <title>Личный кабинет</title>
+</head>
+<body>
+  <div class="container">
+    <div class="user-info">
+      <h2>Иван Иванов</h2>
+      <p>Email: huesosov228@example.penis</p>
+    </div>
+
+    <div class="messages">
+      <div class="message-item" onclick="alert('Сообщение 1 открыто')">
+        <span class="message-topic">Тема: Важное уведомление</span>
+        <span class="message-sender">От: Администратор</span>
+      </div>
+      <div class="message-item" onclick="alert('Сообщение 2 открыто')">
+        <span class="message-topic">Тема: Новая задача</span>
+        <span class="message-sender">От: Менеджер</span>
+      </div>
+      <div class="message-item" onclick="alert('Сообщение 3 открыто')">
+        <span class="message-topic">Тема: Напоминание</span>
+        <span class="message-sender">От: Система</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+ <!-- Верхняя часть с данными пользователя -->
+    <%# <div class="user-info">
+      <h2><%= @user.name %</h2>
+      <p>Email: <%= @user.email %</p>
+    </div>
+
+    <!-- Нижняя часть с сообщениями -->
+    <div class="messages">
+      <% @messages.each do |message| %
+        <div class="message-item" onclick="location.href='<%= message_path(message) %'">
+          <span class="message-topic"><%= message.topic %</span>
+          <span class="message-sender">От: <%= message.sender_name %</span>
+        </div>
+      <% end %
+    </div> %>

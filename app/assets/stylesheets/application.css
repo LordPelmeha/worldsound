@@ -14,7 +14,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #00008B;
+    background-color: #5c2296;
     padding: 10px 20px;
     color: white;
     width: 100%;
@@ -65,7 +65,7 @@ html, body {
 }
 
 .header-nav a:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     color: #FFD700;
 }
 
@@ -117,5 +117,22 @@ html, body {
     filter: brightness(1.5);
 }
 
+.header-account {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Расстояние между кнопками */
+}
+
+.header-btn {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+.header-btn:hover {
+    /* text-decoration: underline; */
+    color: #FFD700;
+}
 
 

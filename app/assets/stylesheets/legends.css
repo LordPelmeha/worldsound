@@ -24,7 +24,7 @@ main{
 }
 
 .music-table a {
-    color: #0066cc;
+    color: #70159a;
     text-decoration: none;
 }
 
@@ -37,7 +37,7 @@ h2.aligncenter {
     padding-top: 10px;
     font-family: 'PT Sans', sans-serif;
     font-size: 20px;
-    color: #3620c2;
+    color: #3f175f;
 }
 
 th, td {
@@ -46,7 +46,7 @@ th, td {
     text-align: left;
 }
 th {
-    background-color: #00008B;
+    background-color: #3f175f;
     color: white;
 }
 tr:nth-child(even) {

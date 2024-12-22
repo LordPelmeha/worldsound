@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 
 body {
     background-color: lavenderblush;
     color: black;
-    font-family: 'PT Sans', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 18px;
     margin: 0;
     padding: 0;
@@ -95,9 +94,6 @@ a {
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
-}
 
 .thumbnail {
     width: 300px;
