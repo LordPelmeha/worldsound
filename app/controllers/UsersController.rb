@@ -56,6 +56,10 @@ class UsersController < ApplicationController
   private
 
   def translate_error(message)
+    message = message.strip
+
+    message = message.split(':').first.strip
+
     case message
     when "EMAIL_NOT_FOUND"
       "Электронная почта не найдена."
@@ -71,8 +75,19 @@ class UsersController < ApplicationController
       "Слишком много попыток. Попробуйте позже."
     when "INVALID_LOGIN_CREDENTIALS"
       "Неверные учетные данные. Проверьте ваш email и пароль."
+    when "INVALID_EMAIL"
+      "Некорректный формат электронной почты."
+    when "MISSING_PASSWORD"
+      "Пароль обязателен."
+    when "MISSING_EMAIL"
+      "Отсутствует электронная почта."
+    when "WEAK_PASSWORD"
+      "Пароль должен содержать минимум 6 символов."
     else
       "Произошла неизвестная ошибка: #{message}."
     end
   end
+
+
+
 end

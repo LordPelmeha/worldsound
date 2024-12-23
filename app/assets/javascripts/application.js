@@ -34,6 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (flashMessage) {
         setTimeout(() => {
             flashMessage.style.display = "none";
-        }, 3000);
+        }, 2000);
     }
 });
