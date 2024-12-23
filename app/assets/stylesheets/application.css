@@ -120,7 +120,7 @@ html, body {
 .header-account {
     display: flex;
     align-items: center;
-    gap: 15px; /* Расстояние между кнопками */
+    gap: 15px;
 }
 
 .header-btn {
@@ -135,4 +135,29 @@ html, body {
     color: #FFD700;
 }
 
+.flash-message {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    color: #fff;
+    font-weight: bold;
+    animation: fadeOut 5s forwards;
+}
+
+.flash-message.notice {
+    background-color: #4CAF50;
+}
+
+.flash-message.error {
+    background-color: #F44336;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
 

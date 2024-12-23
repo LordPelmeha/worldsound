@@ -3,75 +3,76 @@ require 'uri'
 require 'json'
 
 class UsersController < ApplicationController
-  def index
-    if session[:user_id]
-      redirect_to root_path
-    end
-  end
-
-  # For handling signup request
   def signup
-    email = params[:email]
-    password = params[:password]
+    if request.get?
+      flash[:error] = nil
+    elsif request.post?
+      email = params[:email]
+      password = params[:password]
 
-    # Полный URL для Firebase Authentication API
-    uri = URI(ENV['FIREBASE_SIGNUP'])
+      uri = URI(ENV['FIREBASE_SIGNUP'])
+      body = { email: email, password: password, returnSecureToken: true }
+      res = Net::HTTP.post(uri, body.to_json, "Content-Type" => "application/json")
+      data = JSON.parse(res.body)
 
-    # Параметры для запроса
-    body = {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }
-
-    # Отправка POST-запроса
-    res = Net::HTTP.post(
-      uri,
-      body.to_json,
-      "Content-Type" => "application/json"
-    )
-
-    data = JSON.parse(res.body)
-
-    if res.is_a?(Net::HTTPSuccess)
-      
-    else
-      flash[:error] = data["error"]["message"]
-      render :signup
+      if res.is_a?(Net::HTTPSuccess)
+        flash[:notice] = "Регистрация прошла успешно!"
+        redirect_to login_path
+      else
+        flash[:error] = translate_error(data["error"]["message"])
+        render :signup
+      end
     end
   end
-
 
   def login
-    email = params[:email]
-    password = params[:password]
+    if request.get?
+      flash[:error] = nil
+    elsif request.post?
+      email = params[:email]
+      password = params[:password]
 
-    uri = URI(ENV['FIREBASE_LOGIN'])
+      uri = URI(ENV['FIREBASE_LOGIN'])
+      res = Net::HTTP.post_form(uri, 'email' => email, 'password' => password)
+      data = JSON.parse(res.body)
 
-    res = Net::HTTP.post_form(uri, 'email' => email, 'password' => password)
-
-    data = JSON.parse(res.body)
-
-    if res.is_a?(Net::HTTPSuccess)
-      session[:user_id] = data['localId']
-      redirect_to root_path
-      
-    
-    else
-      flash[:error] = data['error']['message']
-      render :login
+      if res.is_a?(Net::HTTPSuccess)
+        session[:user_id] = data['localId']
+        flash[:notice] = "Вход выполнен успешно!"
+        redirect_to root_path
+      else
+        flash[:error] = translate_error(data['error']['message'])
+        render :login
+      end
     end
-  end
-
-  def dashboard
-    if session[:user_id].nil?
-      redirect_to login_path, alert: "Пожалуйста, войдите в систему."
-    end
-    # Здесь можно отобразить данные пользователя
   end
 
   def logout
     session.clear
+    flash[:notice] = "Вы успешно вышли из системы."
     redirect_to root_path
+  end
+
+  private
+
+  def translate_error(message)
+    case message
+    when "EMAIL_NOT_FOUND"
+      "Электронная почта не найдена."
+    when "INVALID_PASSWORD"
+      "Неверный пароль."
+    when "USER_DISABLED"
+      "Учетная запись отключена."
+    when "EMAIL_EXISTS"
+      "Электронная почта уже зарегистрирована."
+    when "OPERATION_NOT_ALLOWED"
+      "Операция не разрешена. Обратитесь в поддержку."
+    when "TOO_MANY_ATTEMPTS_TRY_LATER"
+      "Слишком много попыток. Попробуйте позже."
+    when "INVALID_LOGIN_CREDENTIALS"
+      "Неверные учетные данные. Проверьте ваш email и пароль."
+    else
+      "Произошла неизвестная ошибка: #{message}."
+    end
   end
 end

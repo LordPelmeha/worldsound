@@ -15,5 +15,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    createSnowflakes(); // Генерация снежинок сразу после загрузки
+    createSnowflakes();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const logo = document.getElementById('logo-image');
+    if (logo) {
+        logo.addEventListener('click', function () {
+            window.location.href = '/';
+        });
+    }
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const flashMessage = document.querySelector(".flash-message");
+    if (flashMessage) {
+        setTimeout(() => {
+            flashMessage.style.display = "none";
+        }, 3000);
+    }
 });
