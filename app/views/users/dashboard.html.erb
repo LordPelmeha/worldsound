@@ -11,23 +11,18 @@
 <body>
   <div class="container">
     <div class="user-info">
-      <h2>Иван Иванов</h2>
-      <p>Email: huesosov228@example.penis</p>
+    <%# <h2>Добро пожаловать, <%= user['name'] %>
+      <p>Email: <%= user['email'] %></p>
     </div>
 
     <div class="messages">
-      <div class="message-item" onclick="alert('Сообщение 1 открыто')">
-        <span class="message-topic">Тема: Важное уведомление</span>
-        <span class="message-sender">От: Администратор</span>
-      </div>
-      <div class="message-item" onclick="alert('Сообщение 2 открыто')">
-        <span class="message-topic">Тема: Новая задача</span>
-        <span class="message-sender">От: Менеджер</span>
-      </div>
-      <div class="message-item" onclick="alert('Сообщение 3 открыто')">
-        <span class="message-topic">Тема: Напоминание</span>
-        <span class="message-sender">От: Система</span>
-      </div>
+      <h3>Ваши сообщения:</h3>
+      <% messages.each do |message| %>
+        <div class="message-item" onclick="alert('<%= message['content'] %>')">
+          <span class="message-topic">Тема: <%= message['topic'] %></span>
+          <span class="message-sender">От: <%= message['sender'] %></span>
+        </div>
+      <% end %>
     </div>
   </div>
 </body>
