@@ -1,8 +1,3 @@
-require 'net/http'
-require 'uri'
-require 'json'
-require 'firebase'
-
 class UsersController < ApplicationController
   def signup
     if request.get?
@@ -17,6 +12,8 @@ class UsersController < ApplicationController
       data = JSON.parse(res.body)
 
       if res.is_a?(Net::HTTPSuccess)
+        session[:id_token] = data['idToken']
+        session[:user_id] = data['localId']
         flash[:notice] = "Регистрация прошла успешно!"
         redirect_to login_path
       else
@@ -39,6 +36,7 @@ class UsersController < ApplicationController
 
       if res.is_a?(Net::HTTPSuccess)
         session[:user_id] = data['localId']
+        session[:id_token] = data['idToken']
         flash[:notice] = "Вход выполнен успешно!"
         redirect_to root_path
       else
@@ -51,27 +49,51 @@ class UsersController < ApplicationController
   def dashboard
     # Получение ID текущего пользователя
     user_id = session[:user_id]
+    id_token = session[:id_token]
 
-    # Получаем данные пользователя через Firebase Authentication
-    firebase_auth_client = FirebaseAuth.client
-    user_data = firebase_auth_client.get("users/#{user_id}")
+    Rails.logger.debug "Dashboard: User ID - #{user_id}, ID Token - #{id_token}"
 
-    if user_data.success?
-      @user = user_data.body
-    else
-      flash[:error] = "Не удалось загрузить данные пользователя."
-      redirect_to root_path
-      return
+    # Проверка наличия user_id и id_token
+    if user_id.nil? || id_token.nil?
+      flash[:error] = "Ошибка сессии. Пожалуйста, войдите снова."
+      redirect_to login_path and return
     end
 
-    # Получаем сообщения пользователя через Realtime Database
+    # Получение данных пользователя из Firebase Authentication
+    begin
+      url = URI("#{ENV['FIREBASE_AUTH_URI']}/accounts:lookup?key=#{ENV['FIREBASE_API_KEY']}")
+      Rails.logger.debug "Firebase Auth URI: #{url}"
+      response = Net::HTTP.post(
+        url,
+        { idToken: id_token }.to_json,
+        { "Content-Type" => "application/json" }
+      )
+      Rails.logger.debug "Response code: #{response.code}"
+      Rails.logger.debug "Response body: #{response.body}"
+      data = JSON.parse(response.body)
+
+      if response.code.to_i == 200
+        @user = data["users"].find { |u| u["localId"] == user_id }
+        flash[:error] = "Пользователь не найден." if @user.nil?
+      else
+        flash[:error] = "Не удалось загрузить данные пользователя."
+        Rails.logger.error "Firebase error: #{response.body}"
+      end
+    rescue => e
+      Rails.logger.error "Ошибка подключения к Firebase: #{e.message}"
+      flash[:error] = "Произошла ошибка при загрузке данных."
+    end
+
+    redirect_to root_path if flash[:error].present?
+
+    # Получение сообщений пользователя из Realtime Database
     firebase_db_client = FirebaseDB.client
     messages_data = firebase_db_client.get("messages/#{user_id}")
 
     if messages_data.success?
       @messages = messages_data.body
     else
-      flash[:error] = "Не удалось загрузить сообщения."
+      flash[:error] ||= "Не удалось загрузить сообщения."
     end
   end
 
@@ -115,7 +137,4 @@ class UsersController < ApplicationController
       "Произошла неизвестная ошибка: #{message}."
     end
   end
-
-
-
 end
