@@ -22,7 +22,7 @@ gem "httpclient"
 gem "google-cloud-firestore"
 gem 'mutex_m'
 gem "firebase"
-
+gem "dotenv"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

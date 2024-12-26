@@ -371,6 +371,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
+  dotenv
   dotenv-rails
   firebase
   google-cloud-firestore
