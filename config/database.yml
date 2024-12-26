@@ -36,6 +36,4 @@ test:
 
 production:
   <<: *default
-  database: world_sound_production
-  username: world_sound
-  password: <%= ENV["WORLD_SOUND_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
